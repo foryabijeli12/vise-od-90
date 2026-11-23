@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Više od 90′ — HNL Rezultati, Tablica, Ocjene i Vijesti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b12;
+      --surface: #0e1522;
+      --surface-2: #151f32;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.18);
+      --text: #f3f6fc;
+      --muted: #8b98b0;
+      --accent: #00e5a8;
+      --blue: #2563eb;
+      --red: #ef4444;
+      --gold: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 11, 18, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wrap {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-badge {
+      background: var(--accent);
+      color: #04120e;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 5px;
+      font-size: 0.95rem;
+    }
+
+    .logo-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-small {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-small:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .sync-pill {
+      background: rgba(0, 229, 168, 0.08);
+      border: 1px solid rgba(0, 229, 168, 0.3);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .status-strip {
+      max-width: 1340px;
+      margin: 18px auto 0;
+      padding: 0 24px;
+    }
+
+    .status-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .status-box strong { color: var(--text); }
+
+    .match-ticker {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-top: 18px;
+      padding: 14px 24px;
+    }
+
+    .ticker-inner {
+      max-width: 1340px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .match-tab {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .match-tab.active {
+      border-color: var(--accent);
+      background: rgba(0, 229, 168, 0.06);
+    }
+
+    .match-status {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .match-tab.active .match-status span:first-child { color: var(--accent); }
+
+    .match-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    .container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 26px 24px 64px;
+      display: grid;
+      grid-template-columns: 1.42fr 0.88fr;
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.35rem;
+      text-transform: uppercase;
+    }
+
+    .card-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .empty-box {
+      background: var(--bg);
+      border: 1px dashed var(--border-strong);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .scoreboard {
+      background: linear-gradient(135deg, #10192b 0%, #0b111d 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 26px 24px;
+      margin-bottom: 24px;
+    }
+
+    .sb-top {
+      text-align: center;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .sb-teams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .team-box h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      text-transform: uppercase;
+    }
+
+    .score-box {
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      padding: 10px 24px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    .scorers-row {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      gap: 16px;
+    }
+
+    .stat-group { margin-bottom: 14px; }
+
+    .stat-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .stat-labels span.label-mid { color: var(--muted); font-weight: 500; }
+
+    .bar-track {
+      height: 8px;
+      background: var(--bg);
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+      gap: 3px;
+    }
+
+    .bar-home { background: var(--blue); height: 100%; }
+    .bar-away { background: var(--accent); height: 100%; }
+
+    .team-filter { display: flex; gap: 8px; }
+
+    .pill-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pill-btn.active,
+    .pill-btn:hover {
+      background: var(--accent);
+      color: #04120e;
+      border-color: var(--accent);
+    }
+
+    .player-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .player-row:last-child { border-bottom: none; }
+
+    .player-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+    }
+
+    .player-meta strong { display: block; font-size: 0.92rem; }
+    .player-meta span { font-size: 0.75rem; color: var(--muted); }
+
+    .rating-controls { display: flex; align-items: center; gap: 6px; }
+
+    .rate-select {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .rate-submit {
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      color: var(--accent);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .avg-badge {
+      min-width: 50px;
+      text-align: center;
+      padding: 5px 8px;
+      border-radius: 8px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .rating-high { background: rgba(0, 229, 168, 0.16); color: var(--accent); border: 1px solid rgba(0, 229, 168, 0.4); }
+    .rating-mid { background: rgba(245, 158, 11, 0.16); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .rating-low { background: rgba(239, 68, 68, 0.16); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.4); }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .news-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .news-item:hover { border-color: var(--accent); }
+
+    .news-tag {
+      display: inline-block;
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .news-item h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .news-item p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .news-meta {
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table.hnl-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    table.hnl-table th {
+      text-align: left;
+      padding: 10px 8px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    table.hnl-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .poll-option {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poll-option:hover { border-color: var(--accent); }
+
+    .poll-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: rgba(0, 229, 168, 0.14);
+      z-index: 0;
+    }
+
+    .poll-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.84);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      max-width: 720px;
+      width: 100%;
+      padding: 26px;
+      position: relative;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    textarea.data-editor {
+      width: 100%;
+      min-height: 250px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      margin: 12px 0 14px;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #04120e;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border-strong);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      .container { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .player-row { grid-template-columns: 36px 1fr auto; }
+      .avg-badge { grid-column: 3; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-wrap">
+      <a href="#" class="logo">
+        <span class="logo-badge">90′+</span>
+        <span class="logo-text">Više od 90′</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#utakmice">Utakmice</a></li>
+        <li><a href="#ocjene">Ocjene</a></li>
+        <li><a href="#novosti">Vijesti</a></li>
+        <li><a href="#tablica">Tablica</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button type="button" class="btn-small" onclick="syncLiveData()">Osvježi sad</button>
+        <button type="button" class="btn-small" onclick="openDataEditor()">Uredi podatke</button>
+        <span class="sync-pill" id="syncPill">Auto: 60s</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="status-strip">
+    <div class="status-box">
+      <div id="sourceStatusText"><strong>Izvor podataka:</strong> Čekanje na povezani API ili ručni unos kola.</div>
+      <div id="lastSyncText">Zadnja provjera: —</div>
+    </div>
+  </div>
+
+  <div class="match-ticker" id="utakmice">
+    <div class="ticker-inner" id="matchTicker"></div>
+  </div>
+
+  <main class="container">
+    <div>
+      <section class="scoreboard" id="scoreboard"></section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Statistika Utakmice</h3>
+            <p class="card-sub">Posjed, xG i udarci odabranog susreta</p>
+          </div>
+        </div>
+        <div id="matchStats"></div>
+      </section>
+
+      <section class="card" id="ocjene">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Ocjene Igrača</h3>
+            <p class="card-sub">Dodijeli ocjenu i prati prosjek</p>
+          </div>
+          <div class="team-filter" id="teamFilter"></div>
+        </div>
+        <div id="playerRatingsList"></div>
+      </section>
+
+      <section class="card" id="novosti">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Autorski Sažeci i Vijesti</h3>
+            <p class="card-sub">Vlastite formulacije unutar portala — bez vanjskih linkova</p>
+          </div>
+        </div>
+        <div class="news-grid" id="newsGrid"></div>
+      </section>
+    </div>
+
+    <div>
+      <section class="card" id="tablica">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Tablica HNL</h3>
+            <p class="card-sub">Poredak, gol-razlika i bodovi</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="hnl-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Klub</th>
+                <th>OU</th>
+                <th>P</th>
+                <th>N</th>
+                <th>I</th>
+                <th>GR</th>
+                <th>Bod</th>
+              </tr>
+            </thead>
+            <tbody id="standingsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Anketa Kola</h3>
+            <p class="card-sub">Glasaj za najjači dojam kola</p>
+          </div>
+        </div>
+        <div id="pollContainer"></div>
+        <p id="pollTotal" style="font-size:0.76rem; color:var(--muted); margin-top:8px;"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Više od 90′ &mdash; HNL rezultati, tablica, ocjene i autorski pregledi.
+  </footer>
+
+  <div class="modal" id="storyModal" onclick="if(event.target===this) closeStory()">
+    <div class="modal-card" id="storyModalBody"></div>
+  </div>
+
+  <div class="modal" id="editorModal" onclick="if(event.target===this) closeEditor()">
+    <div class="modal-card">
+      <button type="button" class="modal-close" onclick="closeEditor()">&times;</button>
+      <h3 style="font-family:'Oswald',sans-serif; font-size:1.5rem; text-transform:uppercase;">Uredi podatke kola</h3>
+      <p style="font-size:0.82rem; color:var(--muted); margin-top:6px;">
+        Ovdje unosiš provjerene podatke za aktualno kolo (tablica, utakmice, igrači i vlastiti sažeci vijesti). Sprema se lokalno u pregledniku.
+      </p>
+      <textarea class="data-editor" id="jsonEditorArea"></textarea>
+      <div id="editorError" style="color:#fca5a5; font-size:0.8rem; margin-bottom:10px;"></div>
+      <button type="button" class="btn-accent" onclick="saveEditorData()">Spremi promjene</button>
+      <button type="button" class="btn-ghost" onclick="clearSavedData()">Isprazni podatke</button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'vise_od_90_live_state_v1';
+    const SYNC_INTERVAL_MS = 60000;
+
+    const initialEmptyState = {
+      standings: [],
+      matches: [],
+      editorialNews: [
+        {
+          id: 'uvod-90',
+          tag: 'Redakcija Više od 90′',
+          title: 'Pregled kola čeka nove podatke i izvještaje',
+          summary: 'Ovdje objavljujemo kratke, samostalno napisane sažetke utakmica i poretka bez preusmjeravanja na druge stranice.',
+          fullText: 'Svaki članak na portalu Više od 90′ napisan je vlastitim riječima kao sažetak zbivanja na terenu i oko tablice. Klikom na Uredi podatke možeš odmah dodati nove rezultate, poredak i kratke osvrte kola.'
+        }
+      ],
+      pollData: [
+        { id: 'p-opt-1', label: 'Najbolja predstava kola', votes: 0 },
+        { id: 'p-opt-2', label: 'Najveće iznenađenje kola', votes: 0 },
+        { id: 'p-opt-3', label: 'Ključni trenutak u završnici', votes: 0 }
+      ]
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(initialEmptyState);
+        const parsed = JSON.parse(raw);
+        return {
+          standings: Array.isArray(parsed.standings) ? parsed.standings : [],
+          matches: Array.isArray(parsed.matches) ? parsed.matches : [],
+          editorialNews: Array.isArray(parsed.editorialNews) ? parsed.editorialNews : structuredClone(initialEmptyState.editorialNews),
+          pollData: Array.isArray(parsed.pollData) ? parsed.pollData : structuredClone(initialEmptyState.pollData)
+        };
+      } catch (e) {
+        return structuredClone(initialEmptyState);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    let state = loadState();
+    let activeMatchId = state.matches[0] ? state.matches[0].id : null;
+    let activeTeamFilter = 'ALL';
+    let userRated = {};
+    let userVotedPoll = false;
+
+    function getRatingClass(val) {
+      if (val >= 7.8) return 'rating-high';
+      if (val >= 6.8) return 'rating-mid';
+      return 'rating-low';
+    }
+
+    function renderStandings() {
+      const tbody = document.getElementById('standingsBody');
+      if (!state.standings.length) {
+        tbody.innerHTML = '<tr><td colspan="8"><div class="empty-box">Tablica još nije unesena. Klikni <strong>Uredi podatke</strong> za unos aktualnog poretka.</div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = state.standings.map((r, idx) => (
+        '<tr>' +
+          '<td><strong>' + (r.pos || (idx + 1)) + '.</strong></td>' +
+          '<td><strong>' + r.club + '</strong></td>' +
+          '<td>' + r.p + '</td>' +
+          '<td>' + r.w + '</td>' +
+          '<td>' + r.d + '</td>' +
+          '<td>' + r.l + '</td>' +
+          '<td>' + r.gd + '</td>' +
+          '<td><strong style="color:var(--accent);">' + r.pts + '</strong></td>' +
+        '</tr>'
+      )).join('');
+    }
+
+    function renderNews() {
+      const grid = document.getElementById('newsGrid');
+      if (!state.editorialNews.length) {
+        grid.innerHTML = '<div class="empty-box">Trenutno nema objavljenih sažetaka kola.</div>';
+        return;
+      }
+      grid.innerHTML = state.editorialNews.map(item => (
+        '<article class="news-item" onclick="openStory(\'' + item.id + '\')">' +
+          '<div>' +
+            '<span class="news-tag">' + item.tag + '</span>' +
+            '<h4>' + item.title + '</h4>' +
+            '<p>' + item.summary + '</p>' +
+          '</div>' +
+          '<div class="news-meta">Otvori sažetak &rarr;</div>' +
+        '</article>'
+      )).join('');
+    }
+
+    function openStory(id) {
+      const item = state.editorialNews.find(n => n.id === id);
+      if (!item) return;
+      document.getElementById('storyModalBody').innerHTML =
+        '<button type="button" class="modal-close" onclick="closeStory()">&times;</button>' +
+        '<span class="news-tag">' + item.tag + '</span>' +
+        '<h3 style="font-family:\'Oswald\',sans-serif; font-size:1.7rem; margin:8px 0 12px;">' + item.title + '</h3>' +
+        '<p style="font-weight:600; margin-bottom:12px;">' + item.summary + '</p>' +
+        '<p style="color:var(--muted); line-height:1.7;">' + item.fullText + '</p>';
+      document.getElementById('storyModal').classList.add('open');
+    }
+
+    function closeStory() {
+      document.getElementById('storyModal').classList.remove('open');
+    }
+
+    function renderTicker() {
+      const el = document.getElementById('matchTicker');
+      if (!state.matches.length) {
+        el.innerHTML = '<div class="empty-box">Nema unesenih utakmica za ovo kolo. Klikni <strong>Uredi podatke</strong> za dodavanje utakmica.</div>';
+        return;
+      }
+      el.innerHTML = state.matches.map(m => (
+        '<button type="button" class="match-tab ' + (m.id === activeMatchId ? 'active' : '') + '" onclick="selectMatch(\'' + m.id + '\')">' +
+          '<div class="match-status"><span>' + (m.status || 'Kolo') + '</span><span>Prikaži &rarr;</span></div>' +
+          '<div class="match-row"><span>' + m.home + '</span><strong>' + m.homeScore + '</strong></div>' +
+          '<div class="match-row"><span>' + m.away + '</span><strong>' + m.awayScore + '</strong></div>' +
+        '</button>'
+      )).join('');
+    }
+
+    function selectMatch(id) {
+      activeMatchId = id;
+      activeTeamFilter = 'ALL';
+      renderMatchSection();
+    }
+
+    function renderMatchSection() {
+      const sb = document.getElementById('scoreboard');
+      const st = document.getElementById('matchStats');
+      const pr = document.getElementById('playerRatingsList');
+      const tf = document.getElementById('teamFilter');
+
+      renderTicker();
+
+      if (!state.matches.length) {
+        sb.innerHTML = '<div class="empty-box">Semafor je prazan — dodaj utakmice u <strong>Uredi podatke</strong>.</div>';
+        st.innerHTML = '<div class="empty-box">Statistika utakmice prikazat će se nakon unosa susreta.</div>';
+        tf.innerHTML = '';
+        pr.innerHTML = '<div class="empty-box">Popis igrača za ocjenjivanje prikazat će se nakon unosa utakmice s igračima.</div>';
+        return;
+      }
+
+      const m = state.matches.find(x => x.id === activeMatchId) || state.matches[0];
+      activeMatchId = m.id;
+
+      sb.innerHTML =
+        '<div class="sb-top">' + (m.status || '') + (m.venue ? ' &bull; ' + m.venue : '') + '</div>' +
+        '<div class="sb-teams">' +
+          '<div class="team-box"><h2>' + m.home + '</h2></div>' +
+          '<div class="score-box">' + m.homeScore + ' : ' + m.awayScore + '</div>' +
+          '<div class="team-box"><h2>' + m.away + '</h2></div>' +
+        '</div>' +
+        '<div class="scorers-row">' +
+          '<div>' + (m.homeScorers || '') + '</div>' +
+          '<div style="text-align:right;">' + (m.awayScorers || '') + '</div>' +
+        '</div>';
+
+      const stats = Array.isArray(m.stats) ? m.stats : [];
+      st.innerHTML = stats.length ? stats.map(s => {
+        const total = Number(s.home) + Number(s.away) || 1;
+        const homePct = (Number(s.home) / total) * 100;
+        const awayPct = (Number(s.away) / total) * 100;
+        return (
+          '<div class="stat-group">' +
+            '<div class="stat-labels">' +
+              '<span>' + s.home + '</span>' +
+              '<span class="label-mid">' + s.label + '</span>' +
+              '<span>' + s.away + '</span>' +
+            '</div>' +
+            '<div class="bar-track">' +
+              '<div class="bar-home" style="width:' + homePct + '%"></div>' +
+              '<div class="bar-away" style="width:' + awayPct + '%"></div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('') : '<div class="empty-box">Nema statistike za ovaj susret.</div>';
+
+      const players = Array.isArray(m.players) ? m.players : [];
+      if (!players.length) {
+        tf.innerHTML = '';
+        pr.innerHTML = '<div class="empty-box">Nema unesenih igrača za ocjenjivanje ovog susreta.</div>';
+        return;
+      }
+
+      tf.innerHTML =
+        '<button type="button" class="pill-btn ' + (activeTeamFilter === 'ALL' ? 'active' : '') + '" onclick="setTeamFilter(\'ALL\')">Svi</button>' +
+        '<button type="button" class="pill-btn ' + (activeTeamFilter === m.home ? 'active' : '') + '" onclick="setTeamFilter(\'' + m.home + '\')">' + m.home + '</button>' +
+        '<button type="button" class="pill-btn ' + (activeTeamFilter === m.away ? 'active' : '') + '" onclick="setTeamFilter(\'' + m.away + '\')">' + m.away + '</button>';
+
+      const filteredPlayers = activeTeamFilter === 'ALL' ? players : players.filter(p => p.team === activeTeamFilter);
+
+      pr.innerHTML = filteredPlayers.map(p => {
+        const already = userRated[p.id];
+        const options = [10, 9.5, 9, 8.5, 8, 7.5, 7, 6.5, 6, 5.5, 5, 4].map(val =>
+          '<option value="' + val + '"' + (val === 7.5 ? ' selected' : '') + '>' + val.toFixed(1) + '</option>'
+        ).join('');
+
+        return (
+          '<div class="player-row">' +
+            '<div class="player-num">' + (p.num || '•') + '</div>' +
+            '<div class="player-meta">' +
+              '<strong>' + p.name + ' <span style="color:var(--accent); font-weight:600;">(' + p.team + ')</span></strong>' +
+              '<span>' + (p.pos || '') + (p.info ? ' &bull; ' + p.info : '') + ' &bull; ' + (p.votes || 0) + ' glasova</span>' +
+            '</div>' +
+            '<div class="rating-controls">' +
+              (already
+                ? '<span style="font-size:0.76rem; color:var(--accent); font-weight:600;">Ocijenjeno (' + already + ')</span>'
+                : '<select class="rate-select" id="sel-' + p.id + '">' + options + '</select>' +
+                  '<button type="button" class="rate-submit" onclick="submitRating(\'' + p.id + '\')">Ocijeni</button>'
+              ) +
+            '</div>' +
+            '<div class="avg-badge ' + getRatingClass(Number(p.avg || 0)) + '">' + Number(p.avg || 0).toFixed(1) + '</div>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    function setTeamFilter(team) {
+      activeTeamFilter = team;
+      renderMatchSection();
+    }
+
+    function submitRating(playerId) {
+      const m = state.matches.find(x => x.id === activeMatchId);
+      if (!m || !Array.isArray(m.players)) return;
+      const p = m.players.find(x => x.id === playerId);
+      const sel = document.getElementById('sel-' + playerId);
+      if (!p || !sel) return;
+
+      const score = parseFloat(sel.value);
+      const currentAvg = Number(p.avg || 0);
+      const currentVotes = Number(p.votes || 0);
+      p.avg = ((currentAvg * currentVotes) + score) / (currentVotes + 1);
+      p.votes = currentVotes + 1;
+      userRated[playerId] = score.toFixed(1);
+      saveState();
+      renderMatchSection();
+    }
+
+    function renderPoll() {
+      const totalVotes = state.pollData.reduce((s, o) => s + Number(o.votes || 0), 0);
+      document.getElementById('pollContainer').innerHTML = state.pollData.map(opt => {
+        const v = Number(opt.votes || 0);
+        const pct = totalVotes > 0 ? Math.round((v / totalVotes) * 100) : 0;
+        return (
+          '<div class="poll-option" onclick="votePoll(\'' + opt.id + '\')">' +
+            '<div class="poll-fill" style="width:' + (userVotedPoll ? pct : 0) + '%"></div>' +
+            '<div class="poll-content">' +
+              '<span>' + opt.label + '</span>' +
+              '<span>' + (userVotedPoll ? pct + '%' : 'Glasaj') + '</span>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+      document.getElementById('pollTotal').textContent = 'Ukupno glasova: ' + totalVotes;
+    }
+
+    function votePoll(optId) {
+      if (userVotedPoll) return;
+      const opt = state.pollData.find(o => o.id === optId);
+      if (!opt) return;
+      opt.votes = Number(opt.votes || 0) + 1;
+      userVotedPoll = true;
+      saveState();
+      renderPoll();
+    }
+
+    function openDataEditor() {
+      document.getElementById('editorError').textContent = '';
+      document.getElementById('jsonEditorArea').value = JSON.stringify(state, null, 2);
+      document.getElementById('editorModal').classList.add('open');
+    }
+
+    function closeEditor() {
+      document.getElementById('editorModal').classList.remove('open');
+    }
+
+    function saveEditorData() {
+      const raw = document.getElementById('jsonEditorArea').value;
+      try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed.standings) || !Array.isArray(parsed.matches) || !Array.isArray(parsed.editorialNews)) {
+          document.getElementById('editorError').textContent = 'Podaci moraju sadržavati nizove "standings", "matches" i "editorialNews".';
+          return;
+        }
+        state = {
+          standings: parsed.standings,
+          matches: parsed.matches,
+          editorialNews: parsed.editorialNews,
+          pollData: Array.isArray(parsed.pollData) ? parsed.pollData : state.pollData
+        };
+        activeMatchId = state.matches[0] ? state.matches[0].id : null;
+        activeTeamFilter = 'ALL';
+        saveState();
+        closeEditor();
+        renderAll();
+      } catch (e) {
+        document.getElementById('editorError').textContent = 'Neispravan JSON format — provjeri zareze i navodnike.';
+      }
+    }
+
+    function clearSavedData() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = structuredClone(initialEmptyState);
+      activeMatchId = null;
+      activeTeamFilter = 'ALL';
+      closeEditor();
+      renderAll();
+    }
+
+    async function syncLiveData() {
+      const nowStr = new Date().toLocaleTimeString('hr-HR');
+      document.getElementById('lastSyncText').textContent = 'Zadnja provjera: ' + nowStr;
+
+      try {
+        const res = await fetch('/.netlify/functions/hnl-live', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Network');
+        const payload = await res.json();
+
+        if (payload.liveSourceConnected && payload.raw) {
+          document.getElementById('sourceStatusText').innerHTML =
+            '<strong>Izvor podataka:</strong> Aktivan vanjski API feed (automatsko osvježavanje svakih 60 s).';
+        } else {
+          document.getElementById('sourceStatusText').innerHTML =
+            '<strong>Izvor podataka:</strong> ' + (payload.message || 'Lokalni način rada — unesi podatke kola ili poveži API na Netlifyju.');
+        }
+      } catch (e) {
+        document.getElementById('sourceStatusText').innerHTML =
+          '<strong>Izvor podataka:</strong> Lokalni način rada (Netlify funkcija aktivna nakon objave na Netlifyju).';
+      }
+    }
+
+    function renderAll() {
+      renderMatchSection();
+      renderStandings();
+      renderNews();
+      renderPoll();
+    }
+
+    window.addEventListener('DOMContentLoaded', function () {
+      renderAll();
+      syncLiveData();
+      setInterval(syncLiveData, SYNC_INTERVAL_MS);
+    });
+  </script>
+</body>
+</html>
